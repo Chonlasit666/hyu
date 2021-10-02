@@ -1,0 +1,58 @@
+{% extends "users/layout.html" %}
+{% block body %}
+    <h1 align = 'center'>Avalible Courses</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Course ID</th>
+        <th>Course Name</th>
+        <th>Seats</th>
+        <th>Enroll</th>
+      </tr>
+        {% for course in non_user_courses %}
+        {% load index %}
+        {% if course.avalibility %}
+            <tr>
+                <td><a href="{% url 'course_info' course.id %}">{{ course.course_id }}</a></td>
+                <td>{{ course.course_name }}</td>
+                <td>{{ not_enroll_avalible_seats|index:forloop.counter }} / {{  course.max_seats }}</td>
+                <td>
+                    <form action="{% url 'enroll_course' course.id%}" method="post">
+                        {% csrf_token %}
+                        {% if not_enroll_avalible_seats|index:forloop.counter == 0 %}
+                            <input type="submit" value="Enroll" disabled="disabled" />
+                        {% else %}
+                            <input type="submit" value="Enroll">
+                        {% endif %}
+                    </form>
+                </td>
+            </tr>
+        {% endif %}
+        {% empty %}
+            <li>No courses avalible</li>
+        {% endfor %}
+    </table><br>
+
+    <h2 align = 'center'>My Courses</h2>
+    <table style="width:100%">
+      <tr>
+        <th>Course ID</th>
+        <th>Course Name</th>
+        <th>Unenroll</th>
+      </tr>
+        {% for course in user_courses %}
+        <tr>
+            <td><a href="{% url 'course_info' course.id %}">{{ course.course_id }}</a></td>
+            <td>{{ course.course_name }}</td>
+            <td>
+                <form action="{% url 'unenroll_course' course.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Unenroll">
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <li>No courses</li>
+        {% endfor %}
+    </table><br><br>
+    <a href="{% url 'index' %}">Back to dashborad</a>
+{% endblock %}

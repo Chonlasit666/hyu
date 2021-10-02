@@ -1,0 +1,13 @@
+{% extends "users/layout.html" %}
+{% block body %}
+    <h1 align = 'center'>Welcome!!</h1>
+    <ul>
+        <p align = 'center'>Name: {{ request.user.first_name }} {{ request.user.last_name }}</p>
+        <p align = 'center'>Username: {{ request.user.username }}</p>
+        <p align = 'center'>Email: {{ request.user.email }}</p>
+    </ul>
+
+    <br>
+    <p align = 'center'><a href="{% url 'enroll' %}">Enroll</a></p><br>
+    <p align = 'center'><a href="{% url 'logout' %}">Logout</a></p>
+{% endblock %}

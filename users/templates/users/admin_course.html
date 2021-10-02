@@ -1,0 +1,31 @@
+{% extends "users/layout.html" %}
+{% block body %}
+    <h1>Course: {{ course.course_id }}</h1>
+    <u1>
+        <li>Name: {{ course.course_name }}</li>
+        <li>Semester: {{ course.semester }}</li>
+        <li>Academic year: {{ course.academic_year}}</li>
+        <li>Max Seats: {{ course.max_seats }}</li>
+        <li>Avalible Seats: {{ avalible_seats }}</li>
+        <li>Avalibility: {{ course.avalibility }}</li>
+
+    </u1>
+    <h2>Enrolled Students</h2>
+    <table style="width:100%">
+      <tr>
+        <th>No.</th>
+        <th>Student Name</th>
+        <th>Student ID</th>
+      </tr>
+      {% for student in students %}
+          <tr>
+
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.user.first_name }} {{ student.user.last_name }}</td>
+            <td>{{ student.user.id }}</td>
+          </tr>
+      {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'admin_index' %}">Back to Home</a>
+{% endblock %}

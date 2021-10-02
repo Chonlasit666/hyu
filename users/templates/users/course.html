@@ -1,0 +1,13 @@
+{% extends "users/layout.html" %}
+{% block body %}
+    <h1>Course: {{ course.course_id }}</h1>
+    <u1>
+        <li>Name: {{ course.course_name }}</li>
+        <li>Semester: {{ course.semester }}</li>
+        <li>Academic year: {{ course.academic_year}}</li>
+        <li>Max Seats: {{ course.max_seats }}</li>
+    </u1>
+
+    <br>
+    <a href="{% url 'enroll' %}">Back to courses</a>
+{% endblock %}
